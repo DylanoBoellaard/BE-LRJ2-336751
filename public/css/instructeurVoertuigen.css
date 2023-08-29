@@ -1,0 +1,17 @@
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.instructeur {
+    align-items: center;
+}
+
+.instructeur p span {
+    font-weight: bold;
+}
+
+main img {
+    width: 50px;
+}

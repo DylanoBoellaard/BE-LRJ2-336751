@@ -1,0 +1,21 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+main table {
+    text-align: center;
+    padding: 0.5rem;
+    border-collapse: collapse;
+    margin: 1rem;
+}
+
+main table th, main table td {
+    padding: 0.5rem;
+}
+
+main table td {
+    border-top: solid 3px black;
+}
