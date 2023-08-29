@@ -1,0 +1,12 @@
+# Bestanden ontzichtbaar maken
+#Options -Indexes
+
+# Alle code tussen de IfModule wordt alleen uitgevoerd als de mod_rewrite aangefinkt staat
+<IfModule mod_rewrite.c>
+    # Zet de RewriteEngine aan
+    RewriteEngine On
+    # Stuur door naar de public map zonder tekens achter de vhost-naam
+    RewriteRule ^$ public/ [L]
+    # Stuur door naar de public map met tekens en stop deze in $1
+    RewriteRule (.*) public/$1 [L]
+</IfModule>
