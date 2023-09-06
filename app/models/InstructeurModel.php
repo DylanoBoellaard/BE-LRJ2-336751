@@ -20,7 +20,7 @@ class InstructeurModel
 
     public function getToegewezenVoertuigen($Id)
     {
-        $sql = "SELECT vo.Type, vo.Kenteken, vo.Bouwjaar, vo.Brandstof
+        $sql = "SELECT vo.Id, vo.Type, vo.Kenteken, vo.Bouwjaar, vo.Brandstof
                         ,tv.TypeVoertuig, tv.Rijbewijscategorie
                 FROM Instructeur AS ins
 
@@ -76,7 +76,30 @@ class InstructeurModel
                 VALUES ($voertuigId, $instructeurId, SYSDATE(3), 1, NULL, SYSDATE(6), SYSDATE(6))";
 
         $this->db->query($sql);
-        
+
         $this->db->execute();
+    }
+
+    public function wijzigenVoertuigGegevens($vId, $iId)
+    {
+        $sql = "SELECT vo.Id, vo.Type, vo.Kenteken, vo.Bouwjaar, vo.Brandstof
+                        ,tv.TypeVoertuig, tv.Rijbewijscategorie,
+                        ins.Voornaam, ins.Tussenvoegsel, ins.Achternaam
+                FROM Instructeur AS ins
+
+                INNER JOIN VoertuigInstructeur AS vi
+                ON ins.Id = vi.InstructeurId
+
+                INNER JOIN Voertuig vo
+                ON vi.VoertuigId = vo.Id
+
+                INNER JOIN TypeVoertuig AS tv
+                ON vo.TypeVoertuigId = tv.Id
+
+                WHERE ins.Id = $iId AND vo.Id = $vId";
+
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
     }
 }

@@ -57,6 +57,7 @@ class Instructeur extends BaseController
                         <td>$voertuig->Bouwjaar</td>
                         <td>$voertuig->Brandstof</td>
                         <td>$voertuig->Rijbewijscategorie</td>
+                        <td><a href='../wijzigenVoertuigGegevens/" . $voertuig->Id . "/" . $Id . "'><img src='../../public/img/Edit-icon.png' alt='edit'></a></td>
                     </tr>";
             }
         }
@@ -118,5 +119,71 @@ class Instructeur extends BaseController
                 $this->view('instructeur/beschikbareVoertuigen', $data);
             }
         }
+    }
+
+    public function wijzigenVoertuigGegevens($vId, $iId)
+    {
+        $result = $this->instructeurModel->wijzigenVoertuigGegevens($vId, $iId);
+
+        if (empty($result)) {
+            $formDetails = "<tr><td colspan='6'>Geen Voertuigen gevonden</td></tr>";
+            //header('Refresh:3; url=/instructeur/index.php');
+        } else {
+            //var_dump($result);
+
+            $formDetails = "";
+            foreach ($result as $info) {
+                if (empty($info->Tussenvoegsel)) {
+                    $info->Tussenvoegsel = ' ';
+                }
+
+                $checkedBenzine = '';
+                $checkedElektrisch = '';
+                $checkedDiesel = '';
+                
+                if ($info->Brandstof == 'Benzine') {
+                    $checkedBenzine = 'checked';
+                } else if ($info->Brandstof == 'Elektrisch') {
+                    $checkedElektrisch = 'checked';
+                } else if ($info->Brandstof == 'Diesel') {
+                    $checkedDiesel = 'checked';
+                }
+
+                $formDetails .= "<form action='' method='post'>
+                <label for='instructeur'>Instructeur:</label>
+                <select name='instructeur' id='instructeur'>
+                    <option value='instructeur1'>$info->Voornaam $info->Tussenvoegsel $info->Achternaam</option>
+                </select>
+                <label for='typeVoertuig'>Type Voertuig:</label>
+                <select name='typeVoertuig' id='typeVoertuig'>
+                    <option value='typeVoertuig'>$info->TypeVoertuig</option>
+                </select>
+                <label for='type'>Type:</label>
+                <input type='text' name='type' id='type' value='$info->Type'>
+                <label for='bouwjaar'>Bouwjaar:</label>
+                <input type='date' name='bouwjaar' id='bouwjaar' value='$info->Bouwjaar'>
+                <div id='wijzigenBrandstof'>
+                    <input type='radio' name='brandstof' id='diesel' value='diesel' $checkedDiesel>
+                    <label for='diesel'>Diesel</label>
+                    <input type='radio' name='brandstof' id='benzine' value='benzine' $checkedBenzine>
+                    <label for='Benzine'>Benzine</label>
+                    <input type='radio' name='brandstof' id='elektrisch' value='elektrisch' $checkedElektrisch>
+                    <label for='Elektrisch'>Elektrisch</label>
+                </div>
+                <label for='kenteken'>Kenteken:</label>
+                <input type='text' name='kenteken' id='kenteken' value='$info->Kenteken'>
+                <button type='submit'>Wijzig</button>
+            </form>";
+            }
+        }
+
+        $data = [
+            'title' => 'Wijzigen voertuiggegevens',
+            'formDetails' => $formDetails,
+            'voerID' => $vId,
+            'insID' => $iId
+        ];
+
+        $this->view('instructeur/wijzigenVoertuigGegevens', $data);
     }
 }
