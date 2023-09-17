@@ -13,7 +13,6 @@
 
         <?= var_dump($data['instructeurOptions']) ?>
         <?= var_dump($data['instructorID']) ?>
-        <?= var_dump($data['typevoertuig']) ?>
 
         <?= $data['formDetails'] ?>
         <a href="<?= URLROOT ?>/instructeur/index">Selecteer een andere instructeur</a>

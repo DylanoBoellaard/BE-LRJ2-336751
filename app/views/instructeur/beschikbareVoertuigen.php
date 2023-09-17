@@ -12,6 +12,9 @@
     <main>
         <h3><?= $data['title'] ?></h3>
 
+        <?= var_dump($data['voertuigId']) ?>
+        <?= var_dump($data['instructeurId']) ?>
+
         <div class="instructeur">
             <p>
                 <span>Naam: </span><?= $data['instructeur'][0]->Voornaam . " " . $data['instructeur'][0]->Tussenvoegsel . " " . $data['instructeur'][0]->Achternaam ?>
