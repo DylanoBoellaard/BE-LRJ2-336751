@@ -18,6 +18,15 @@ class InstructeurModel
         return $this->db->resultSet();
     }
 
+    public function countInstructeurs()
+    {
+        $sql = "SELECT COUNT(DISTINCT Id) AS count FROM Instructeur";
+
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
+    }
+
     public function getToegewezenVoertuigen($Id)
     {
         $sql = "SELECT vo.Id, vo.Type, vo.Kenteken, vo.Bouwjaar, vo.Brandstof

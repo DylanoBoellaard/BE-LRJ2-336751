@@ -12,6 +12,8 @@
     <main>
         <h3><?= $data['title'] ?></h3>
 
+        <p>Aantal instructeurs: <?= $data['instructorCount'][0]->count ?></p>
+
         <table>
             <thead>
                 <th>Voornaam</th>

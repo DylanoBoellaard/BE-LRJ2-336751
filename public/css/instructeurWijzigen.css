@@ -44,6 +44,10 @@ select, input {
     font-size: 17px;
 }
 
+input[type="date"]#bouwjaar:hover {
+    cursor: not-allowed;
+}
+
 div#wijzigenBrandstof input[type="radio"]:first-child {
     margin-left: 0;
 }

@@ -13,6 +13,8 @@ class Instructeur extends BaseController
     {
         $result = $this->instructeurModel->getInstructeurs();
 
+        $instructorCount = $this->instructeurModel->countInstructeurs();
+
         $rows = "";
         foreach ($result as $instructeur) {
             $rows .= "<tr>
@@ -28,7 +30,8 @@ class Instructeur extends BaseController
 
         $data = [
             'title' => 'Instructeurs in dienst',
-            'tableRows' => $rows
+            'tableRows' => $rows,
+            'instructorCount' => $instructorCount
         ];
 
         $this->view('instructeur/index', $data);
