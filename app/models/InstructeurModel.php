@@ -102,4 +102,49 @@ class InstructeurModel
 
         return $this->db->resultSet();
     }
+
+    public function updateVoertuigGegevens($vId, $selectedInstructorId, $selectedTypeVoertuigId, $type, $bouwjaar, $brandstof, $kenteken)
+    {
+        $sql = "UPDATE Voertuig AS vo
+            INNER JOIN VoertuigInstructeur AS vi ON vo.Id = vi.VoertuigId
+            SET
+                vo.Type = :type,
+                vo.Bouwjaar = :bouwjaar,
+                vo.Brandstof = :brandstof,
+                vo.Kenteken = :kenteken,
+                vo.TypeVoertuigId = :typeVoertuigId,
+                vi.InstructeurId = :selectedInstructorId
+                
+            WHERE vo.Id = :vId";
+
+        // Bind parameters and execute the query
+        $params = [
+            ':type' => $type,
+            ':bouwjaar' => $bouwjaar,
+            ':brandstof' => $brandstof,
+            ':kenteken' => $kenteken,
+            ':selectedInstructorId' => $selectedInstructorId,
+            ':typeVoertuigId' => $selectedTypeVoertuigId,
+            ':vId' => $vId,
+        ];
+
+        $this->db->query($sql);
+        $this->db->bindValues($params);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true; // Update successful
+        } else {
+            return false; // Update unsuccessful
+        }
+    }
+
+    public function getAllTypesOfVoertuigen()
+    {
+        $sql = "SELECT Id, TypeVoertuig FROM TypeVoertuig";
+
+        $this->db->query($sql);
+
+        return $this->db->resultSet();
+    }
 }

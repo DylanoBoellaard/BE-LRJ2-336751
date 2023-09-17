@@ -11,11 +11,13 @@
     <main>
         <h3><?= $data['title'] ?></h3>
 
-        <p><?= var_dump($data['formDetails']) ?></p>
-        <p><?= var_dump($data['voerID']) ?></p>
-        <p><?= var_dump($data['insID']) ?></p>
+        <?= var_dump($data['instructeurOptions']) ?>
+        <?= var_dump($data['instructorID']) ?>
+        <?= var_dump($data['typevoertuig']) ?>
 
         <?= $data['formDetails'] ?>
+        <a href="<?= URLROOT ?>/instructeur/index">Selecteer een andere instructeur</a>
+        <a href="<?= URLROOT ?>/home/index">Terug naar homepage</a>
     </main>
 </body>
 

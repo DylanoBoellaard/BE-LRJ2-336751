@@ -25,6 +25,13 @@ class Database
         $this->statement = $this->dbHandler->prepare($sql);
     }
 
+    public function bindValues($params)
+    {
+        foreach ($params as $param => $value) {
+            $this->statement->bindValue($param, $value);
+        }
+    }
+
     public function execute()
     {
         return $this->statement->execute();
